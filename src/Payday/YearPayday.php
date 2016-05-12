@@ -20,10 +20,7 @@ class YearPayday {
      */
     public function getMonthsToNewYear() {
         $startDate = new \DateTime('midnight');
-
-        // PHP parser craps out on 'first day of next year', so hack our way around it
-        // Get first day of current year's January and then simply add 1 year to it
-        $endDate = new \DateTime('first day of january');
+        $endDate = new \DateTime('1st january');
         $endDate = $endDate->modify('+1 year');
 
         $month = new \DateInterval('P1M');
