@@ -20,8 +20,7 @@ class YearPayday {
      */
     public function getMonthsToNewYear() {
         $startDate = new \DateTime('midnight');
-        $endDate = new \DateTime('1st january');
-        $endDate = $endDate->modify('+1 year');
+        $endDate = new \DateTime('1st january next year');
 
         $month = new \DateInterval('P1M');
         $newPeriod = new \DateTime('first day of next month');
