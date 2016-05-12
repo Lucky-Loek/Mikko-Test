@@ -49,7 +49,14 @@ class PaydayCommand extends Command
         }
 
         // Path of output folder
-        $outputFolder = __DIR__ . '/../../output/';
+        try {
+            $outputFolder = __DIR__ . '/../../output/';
+        } catch (\Exception $e) {
+            $output->writeln('<error>Could not open output folder</error>');
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            return 1;
+        }
+
 
         // Define headers for .csv
         $csvHeaders = array(
@@ -65,31 +72,45 @@ class PaydayCommand extends Command
         }
 
         // Retrieve the remaining months for this year
-        $year = new YearPayday();
-        $remainingMonths = $year->getMonthsToNewYear();
+        try {
+            $year = new YearPayday();
+            $remainingMonths = $year->getMonthsToNewYear();
+        } catch (\Exception $e) {
+            $output->writeln('<error>Could not determine remaining months in this year</error>');
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            return 1;
+        }
 
         // Write paydays for each of those months to file
-        foreach ($remainingMonths as $month) {
-            $monthPayday = new MonthPayday($month);
+        try {
+            foreach ($remainingMonths as $month) {
+                $monthPayday = new MonthPayday($month);
 
-            $data = array(
-                array(
-                    $monthPayday->getFormattedMonth(),
-                    $monthPayday->getFormattedSalaryPayday(),
-                    $monthPayday->getFormattedBonusPayday()
-                )
-            );
+                $data = array(
+                    array(
+                        $monthPayday->getFormattedMonth(),
+                        $monthPayday->getFormattedSalaryPayday(),
+                        $monthPayday->getFormattedBonusPayday()
+                    )
+                );
 
-            // Write to file
-            foreach ($data as $item) {
-                fputcsv($csv, $item);
+                // Write to file
+                foreach ($data as $item) {
+                    fputcsv($csv, $item);
+                }
             }
+        } catch (\Exception $e) {
+            $output->writeln('<error>Could not determine dates</error>');
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            return 1;
         }
+
 
         // Close the file
         fclose($csv);
 
         // Let user know execution succeeded
         $output->writeln('<info>Successfully calculated paydays. All results in <comment>output/' . $outputFile . '</comment></info>');
+        return 0;
     }
 }
