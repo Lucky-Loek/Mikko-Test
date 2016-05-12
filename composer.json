@@ -1,0 +1,12 @@
+{
+    "name": "loekiedepo/Mikko-Test",
+    "description": "PHP CLI that creates a .csv file which contains all the paydays for the remainder of the year",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "symfony/console": "3.0.6"
+    }
+}
