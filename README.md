@@ -25,8 +25,7 @@ This info gets written to a .csv file the user specifies.
 1. Open project root
 2. Run `$ php app/console.php dates:payday <filename>`
 
-   Replace `<filename>` with a filename of your choosing. You don't have to put the
-.csv extension after it.
+   Replace `<filename>` with a filename of your choosing. The .csv isn't necessary.
 
 ## Frameworks & Libraries
 - [Symfony/Console](https://symfony.com/doc/current/components/console/introduction.html)
