@@ -1,6 +1,6 @@
 <?php
 
-namespace Commands;
+Namespace Commands;
 
 use Payday\YearPayday;
 use Payday\MonthPayday;
@@ -16,7 +16,8 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
  * Class PaydayCommand
  * @package Commands
  */
-class PaydayCommand extends Command {
+class PaydayCommand extends Command
+{
 
     /**
      * Set up command with its arguments
@@ -48,7 +49,7 @@ class PaydayCommand extends Command {
         }
 
         // Path of output folder
-        $outputFolder = __DIR__. '/../../output/';
+        $outputFolder = __DIR__ . '/../../output/';
 
         // Define headers for .csv
         $csvHeaders = array(
@@ -56,7 +57,7 @@ class PaydayCommand extends Command {
         );
 
         // Open file
-        $csv = fopen($outputFolder.$outputFile, 'w');
+        $csv = fopen($outputFolder . $outputFile, 'w');
 
         // Write headers to file
         foreach ($csvHeaders as $item) {
@@ -71,7 +72,7 @@ class PaydayCommand extends Command {
         foreach ($remainingMonths as $month) {
             $monthPayday = new MonthPayday($month);
 
-            $data = array (
+            $data = array(
                 array(
                     $monthPayday->getFormattedMonth(),
                     $monthPayday->getFormattedSalaryPayday(),
@@ -87,8 +88,8 @@ class PaydayCommand extends Command {
 
         // Close the file
         fclose($csv);
-        
+
         // Let user know execution succeeded
-        $output->writeln("Succesfully calculated paydays. All results in output/" . $outputFile);
+        $output->writeln('<info>Successfully calculated paydays. All results in <comment>output/' . $outputFile . '</comment></info>');
     }
 }
