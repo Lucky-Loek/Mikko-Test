@@ -13,6 +13,8 @@ staff according to the following rules:
 
 This info gets written to a .csv file the user specifies.
 
+**Note** That my app actually fails rule #3: it provides the bonus payday for _this_ month.
+
 ## Requirements
 - PHP 5.6 or higher (>= 7.0 recommended)
 - Composer installed
